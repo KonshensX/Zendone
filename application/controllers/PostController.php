@@ -13,12 +13,12 @@ class PostController extends Zend_Controller_Action
         // Display all the items in the database along with the pagination and stuff
 
         $posts = new Application_Model_DbTable_Post();
-        $row = $posts->getPostsWithCategory();
+        $rows = $posts->getPostsWithCategory();
 
 
 
         $this->view->assign(array(
-
+            'paginator' => $rows
         ));
     }
     /**

@@ -1,5 +1,86 @@
 <?php
-    $this->form->setAction($this->url());
+    $this->profileForm->setAction($this->url());
+    /*
+    $imageForm->setAttribute('action', $this->url('profile', array('action' => 'upload')));
+    $imageForm->setAttribute('id', 'myForm');
+    $imageForm->prepare();
+    */
 ?>
+<br><br>
+<div class="col-lg-10 col-lg-offset-1">
+    <div class="card card-nav-tabs">
+        <div class="header header-info">
+            <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+            <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper nav-align-center">
+                    <ul class="nav nav-pills" data-tabs="tabs">
+                        <li class="active">
+                            <a href="#profile" data-toggle="tab" aria-expanded="false">
+                                <i class="fa fa-user"></i>
+                                Informations
+                                <div class="ripple-container"></div></a>
+                        </li>
+                        <li class="">
+                            <a href="#messages" data-toggle="tab" aria-expanded="true">
+                                <i class="fa fa-camera-retro"></i>
+                                Avatar
+                                <div class="ripple-container"></div></a>
+                        </li>
+                        <li class="">
+                            <a href="#posts" data-toggle="tab" aria-expanded="false">
+                                <i class="fa fa-file-archive-o"></i>
+                                Posts
+                                <div class="ripple-container"></div></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="content" style="overflow: hidden">
+            <div class="tab-content text-center">
+                <div class="tab-pane active" id="profile">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <?= $this->profileForm ?>
+                    </div>
 
-<?= $this->form ?>
+                </div>
+                <div class="tab-pane" id="messages">
+                    <div class="col-lg-6 col-lg-offset-3">
+
+                        <img class="img-responsive preview" src="<?= $this->baseurl('../data/uploads/profile/' . $profile->image) ?>" id="image-file">
+
+                    </div>
+
+                </div>
+                <div class="tab-pane" id="posts">
+                    <?php if (!$posts) { ?>
+                        <h3 class="text-center text-info">Opps, this user has not posted anything yet!</h3>
+                    <?php } else { ?>
+                        <?php foreach ($posts as $post) { ?>
+                            <div class="col-lg-4">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading" style="color: white">
+                                        <strong><?= $post->title ?></strong>
+                                    </div>
+                                    <div class="panel-body">
+                                        <?php if ($post->cover) { ?>
+                                            <img class="img-responsive" width="300px" height="180px" src="<?= $this->basepath('../data/uploads/covers/' . $post->cover) ?>" alt="">
+                                        <?php } else { ?>
+                                            <img class="img-responsive" width="300px" height="180px" src="<?= $this->basepath('/img/no-cover.png') ?>" alt="">
+                                        <?php } ?>
+
+                                    </div>
+                                    <div class="panel-footer">
+                                        <div class="btn-group">
+                                            <a href="<?= $this->url('post', array('action' => 'edit', 'id' => $post->id )) ?>" class="btn btn-round btn-info"><i class="fa fa-edit"></i> </a>
+                                            <a href="<?= $this->url('post', array('action' => 'delete', 'id' => $post->id)) ?>" class="btn btn-round btn-danger"><i class="fa fa-trash"></i> </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php }} ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

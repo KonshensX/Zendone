@@ -1,0 +1,25 @@
+<?php
+$this->headTitle($this->profile->username . ' Profile page');
+?>
+<div class="col-lg-12 ">
+    <div class="section section-landing">
+        <div class="avatar">
+            <?php if ($this->profile->avatar) { ?>
+                <img height="200px" width="200px" class="img-responsive img-circle img-raised center-block" src="<?= $this->baseurl('../data/uploads/profile/' . $profile->image) ?>">
+            <?php } else { ?>
+                <img height="200px" width="200" class="img-responsive img-circle img-raised center-block" src="<?= $this->baseurl('/img/profilepic.png') ?>">
+            <?php } ?>
+        </div>
+        <h2 class="text-center"><?= $this->profile->firstname . ' ' . $this->profile->lastname . '<br> A.K.A <br>  ' . $this->profile->username ?></h2>
+        <h6 class="text-center text-uppercase"><?= $this->profile->occupation ?></h6>
+        <p class="text-center description"><?= $this->profile->about ?></p>
+        <hr>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h5 class="text-center text-uppercase"><strong><?= $this->profile->username ?></strong> influence</h5>
+            </div>
+
+        </div>
+    </div>
+</div>

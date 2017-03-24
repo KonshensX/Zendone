@@ -25,8 +25,8 @@ class Application_Form_Profile extends Zend_Form
                 'class' => 'form-control'
             ]);
 
-        $phone = new Zend_Form_Element_Text('phone');
-        $phone->setLabel('phone')
+        $phone = new Zend_Form_Element_Text('mobile');
+        $phone->setLabel('mobile')
             ->setAttribs([
                 'class' => 'form-control'
             ]);
@@ -60,7 +60,7 @@ class Application_Form_Profile extends Zend_Form
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setValue('Save Changes')
             ->setAttribs([
-                'class' => 'btn btn-info pull-right'
+                'class' => 'btn btn-info btn-round btn-block pull-right'
             ]);
 
         $this->addElements([$username, $firstname, $lastname, $phone, $email, $occupation, $about, $submit]);

@@ -53,7 +53,7 @@ class Application_Form_Post extends Zend_Form
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('submit')
             ->setAttribs(array(
-                'class' => 'btn btn-round btn-info pull-right'
+                'class' => 'btn btn-round btn-info btn-block pull-right'
             ));
 
         $this->addElements(array($title, $price, $phone, $email, $category, $description, $submit));

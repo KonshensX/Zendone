@@ -41,15 +41,14 @@ class Application_Form_Post extends Zend_Form
                 'class' => 'form-control'
             ));
 
-        $category = new Zend_Form_Element_Select('category');
+        $category = new Zend_Form_Element_Select('category_id');
         $category->setLabel('Category')
             ->setAttribs(array(
                 'class' => 'form-control'
             ));
-        $category->addMultiOptions(array(
-            '1' => 'Technology',
-            '2' => 'What the hell is this'
-        ));
+        foreach ($this->getValuesForSelect() as $cat) {
+            $category->addMultiOption($cat->id, $cat->name);
+        }
 
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('submit')
@@ -59,6 +58,11 @@ class Application_Form_Post extends Zend_Form
 
         $this->addElements(array($title, $price, $phone, $email, $category, $description, $submit));
 
+    }
+
+    private function getValuesForSelect () {
+        $categories = new Application_Model_DbTable_Category();
+        return $categories->fetchAll();
     }
 
 

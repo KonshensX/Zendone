@@ -15,5 +15,16 @@ class Application_Model_DbTable_Post extends Zend_Db_Table_Abstract
             'RefColumns' => array('category_id'),
         ),
     );
+
+    public function getPostsWithCategory() {
+        $query = $this->select();
+        $query->from(array('p' => 'posts'))
+              ->join(array('c' => 'categories'), 'p.category_id = c.id')
+              ->order('p.id DESC');
+        $query->setIntegrityCheck(false);
+
+        $result = $this->fetchAll($query);
+        return $result;
+    }
 }
 

@@ -1,27 +1,27 @@
 <?php
-$this->headTitle($post->title);
+    $this->headTitle($this->post->title);
 ?>
 
 <div class="section section-landing">
     <div class="col-lg-10 col-lg-offset-1">
         <div class="row">
             <p>
-                <strong><span class="pull-left text-primary"><?= $post->title ?> - </span></strong> <em> <?= $post->getCategory()->name ?></em>
-                <strong><span class="pull-right text-primary">Price : <?= $post->price ?></span></strong>
+                <strong><span class="pull-left text-primary"><?= $this->post->title ?> - </span></strong> <em> <?= $this->post->name?></em>
+                <strong><span class="pull-right text-primary">Price : <?= $this->post->price ?></span></strong>
             </p>
         </div>
         <hr>
         <div class="avatar">
-            <?php if ($post->cover) {  ?>
-                <img class="img-responsive img-rounded img-raised center-block" src="<?= $this->basepath('../data/uploads/covers/' . $post->cover) ?>">
+            <?php if ($this->post->cover) {  ?>
+                <img class="img-responsive img-rounded img-raised center-block" src="<?= $this->baseurl('../data/uploads/covers/' . $this->post->cover) ?>">
             <?php } else { ?>
-                <img class="img-responsive img-rounded img-raised center-block" src="<?= $this->basepath('../public/img/no-cover.png') ?>">
+                <img class="img-responsive img-rounded img-raised center-block" src="<?= $this->baseurl('../public/img/no-cover.png') ?>">
             <?php } ?>
         </div>
         <!--<h2 class="text-center">"Username Here"</h2>-->
         <br>
         <h6 class="text-center text-uppercase">Description</h6>
-        <p class="text-center description"><?= $post->description ?></p>
+        <p class="text-center description"><?= $this->post->description ?></p>
         <hr>
         <h1 class="text-center text-primary">GALLERY GON' BE HERE</h1>
 
@@ -29,8 +29,8 @@ $this->headTitle($post->title);
         <div class="section section-landing">
             <h2>CONTACT:</h2>
             <p>
-                <span class="pull-left"><strong><em>Phone:</em></strong><?= $post->phone ?></span>
-                <span class="pull-right"><strong><em>Email:</em></strong><?= $post->email ?></span>
+                <span class="pull-left"><strong><em>Phone:</em></strong><?= $this->post->phone ?></span>
+                <span class="pull-right"><strong><em>Email:</em></strong><?= $this->post->email ?></span>
             </p>
         </div>
     </div>

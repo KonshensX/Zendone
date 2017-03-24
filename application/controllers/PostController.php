@@ -21,6 +21,23 @@ class PostController extends Zend_Controller_Action
             'paginator' => $rows
         ));
     }
+
+    public function displayAction () {
+        $id = (int)$this->_request->getParam('id', 2);
+
+        if (!$id) {
+            //Redirect if no id
+            //$this->redirect();
+        }
+
+        $postManager = new Application_Model_DbTable_Post();
+        $post = $postManager->getPostWithCategory(1);
+
+        $this->view->assign([
+            'post' => $post->current()
+        ]);
+    }
+
     /**
     * Add a new item
     **/

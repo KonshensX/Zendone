@@ -66,7 +66,12 @@ class ProfileController extends Zend_Controller_Action
         ]);
     }
 
+    /**
+     * Handle the upload and cropping of the user avatar
+     */
     public function avatarAction () {
+        var_dump($_FILES);die();
+
         //This is going to handle the upload of the avatar and
         //Do stuff with the image
         //Data gon' come through an ajax request

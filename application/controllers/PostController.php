@@ -1,5 +1,10 @@
 <?php
 
+require_once '/vendor/imagine/lib/Gd/Imagine.php';
+require_once '/vendor/imagine/lib/Image/Box.php';
+require_once '/vendor/imagine/lib/Image/Point.php';
+
+
 class PostController extends Zend_Controller_Action
 {
 
@@ -57,7 +62,7 @@ class PostController extends Zend_Controller_Action
             unset($data['submit']);
             $id = $post->insert($data);
             //This redirects to the cover url along with the id
-            $this->getHelper('Redirector')->gotoSimple('cover', 'post', null, ['id' => $id]);
+            $this->getHelper('Redirector')->gotoSimple('cover', 'post', null, [$id]);
         }
 
 
@@ -70,6 +75,8 @@ class PostController extends Zend_Controller_Action
      * Upload the cover of the item
      */
     public function uploadAction() {
+
+        var_dump($_FILES);die();
         $form = new Application_Form_Cover();
         $adapter = new Zend_File_Transfer_Adapter_Http();
         $adapter->receive();
@@ -120,11 +127,40 @@ class PostController extends Zend_Controller_Action
      * Updates the cover of the post
      */
     public function coverAction () {
+        //this will need the id of the item whose cover need to be changed
+        //TODO: Get id from the url
+
+
         $form = new Application_Form_Cover();
 
         if ($this->_request->isPost()) {
+            echo "<pre>";
+            var_dump($_FILES);
+            //die();
+            //Do stuff with the image
+            //Data gon' come through an ajax request
+            $x = 0;
+            $y = 0;
+            $width = 0;
+            $height = 0;
+            $tmp_file = $_FILES['file-0']['tmp_name'];
+            $filename = $_FILES['file-0']['name'];
+            if(isset($_POST)) {
+                $x = $_POST['x'];
+                $y = $_POST['y'];
+                $width = $_POST['width'];
+                $height = $_POST['height'];
+            }
+            $imagine = new Imagine();
+            $image = $imagine->open($tmp_file);
+            $temp = explode('.', $filename);
+            $extension = '.' . $temp[count($temp) - 1];
+            $filename = md5($filename) . $extension;
+            $image
+                ->crop(new Point($x, $y), new Box($width, $height))
+                ->save(getcwd() . '/data/uploads/covers/' . $filename);
 
-
+            //Update the post
 
         }
 

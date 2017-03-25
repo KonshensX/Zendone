@@ -1,5 +1,8 @@
 <?php
     $this->profileForm->setAction($this->url());
+    $this->profileForm->setAction($this->url(['controller' => 'profile', 'action' => 'avatar']));
+    $this->headTitle('Settings');
+    //Set the avatar form action
     /*
     $imageForm->setAttribute('action', $this->url('profile', array('action' => 'upload')));
     $imageForm->setAttribute('id', 'myForm');
@@ -40,7 +43,60 @@
             <div class="tab-content text-center">
                 <div class="tab-pane active" id="profile">
                     <div class="col-lg-8 col-lg-offset-2">
-                        <?= $this->profileForm ?>
+
+                        <?= $this->profileForm->renderForm(false); ?>
+                        <?= $this->profileForm->id->renderViewHelper()  ?>
+                        <div class="form-group label-floating">
+                            <label class="control-label">
+                                <?= $this->profileForm->username->getLabel() ?>
+                            </label>
+                            <?= $this->profileForm->username->renderViewHelper() ?>
+                        </div>
+
+                        <<div class="form-group label-floating">
+                            <label class="control-label">
+                                <?= $this->profileForm->firstname->getLabel() ?>
+                            </label>
+                            <?= $this->profileForm->firstname->renderViewHelper() ?>
+                        </div>
+
+                        <div class="form-group label-floating">
+                            <label class="control-label">
+                                <?= $this->profileForm->lastname->getLabel() ?>
+                            </label>
+                            <?= $this->profileForm->lastname->renderViewHelper() ?>
+                        </div>
+
+                        <div class="form-group label-floating">
+                            <label class="control-label">
+                                <?= $this->profileForm->mobile->getLabel() ?>
+                            </label>
+                            <?= $this->profileForm->mobile->renderViewHelper() ?>
+                        </div>
+
+                        <div class="form-group label-floating">
+                            <label class="control-label">
+                                <?= $this->profileForm->interests->getLabel() ?>
+                            </label>
+                            <?= $this->profileForm->interests->renderViewHelper() ?>
+                        </div>
+
+                        <div class="form-group label-floating">
+                            <label class="control-label">
+                                <?= $this->profileForm->occupation->getLabel() ?>
+                            </label>
+                            <?= $this->profileForm->occupation->renderViewHelper() ?>
+                        </div>
+
+                        <div class="form-group label-floating">
+                            <label class="control-label">
+                                <?= $this->profileForm->about->getLabel() ?>
+                            </label>
+                            <?= $this->profileForm->about->renderViewHelper() ?>
+                        </div>
+
+                        <button type="submit" class="btn btn-info btn-round btn-block"><i class="fa fa-save"></i> Save Changes</button>
+
                     </div>
 
                 </div>
@@ -48,7 +104,7 @@
                     <div class="col-lg-6 col-lg-offset-3">
 
                         <img class="img-responsive preview" src="<?= $this->baseurl('../data/uploads/profile/' . $profile->image) ?>" id="image-file">
-
+                        <?= $this->avatarForm ?>
                     </div>
 
                 </div>

@@ -1,0 +1,74 @@
+<?php
+    $this->form->setAction($this->url());
+    //$form->prepare();
+?>
+
+<div class="col-lg-10 col-lg-offset-1">
+    <div class="section section-landing">
+        <div class="row">
+            <h2 class="title">Edit post</h2>
+            <?= $this->form->renderForm(false); ?>
+            <div class="form-group">
+                <?= $this->form->id->renderViewHelper(); ?>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group label-floating">
+                    <label class="control-label">
+                        <?= $this->form->title->getLabel() ?>
+                    </label>
+                    <?= $this->form->title->renderViewHelper() ?>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group label-floating">
+                    <label class="control-label">
+                        <?= $this->form->price->getLabel() ?>
+                    </label>
+                    <?= $this->form->price->renderViewHelper() ?>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group label-floating">
+                    <label class="control-label">
+                        <?= $this->form->phone->getLabel() ?>
+                    </label>
+                    <?= $this->form->phone->renderViewHelper() ?>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group label-floating">
+                    <label class="control-label">
+                        <?= $this->form->email->getLabel() ?>
+                    </label>
+                    <?= $this->form->email->renderViewHelper() ?>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group label-floating">
+                    <label class="control-label">
+                        <?= $this->form->category_id->getLabel() ?>
+                    </label>
+                    <?= $this->form->category_id->renderViewHelper() ?>
+                </div>
+            </div>
+
+            <br><br>
+            <div class="col-lg-12">
+                <div class="form-group label-floating">
+                    <label class="control-label">
+                        <?= $this->form->description->getLabel() ?>
+                    </label>
+                    <?= $this->form->description->renderViewHelper() ?>
+                </div>
+            </div>
+
+            <button class="btn btn-round btn-info btn-block pull-right" type="submit"><i class="fa fa-save"></i> Update</button>
+            
+        </div>
+    </div>
+</div>

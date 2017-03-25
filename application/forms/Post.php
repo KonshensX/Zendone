@@ -7,13 +7,15 @@ class Application_Form_Post extends Zend_Form
     {
         /* Form Elements & Other Definitions Here ... */
 
-        $this->setAction('store');
+        $id = new Zend_Form_Element_Hidden('id');
+
 
         $title = new Zend_Form_Element_Text('title');
         $title->setLabel('Post title')
                 ->setAttribs(array(
                     'class' => 'form-control'
                 ));
+
 
         $description = new Zend_Form_Element_Textarea('description');
         $description->setLabel('Description')
@@ -56,7 +58,7 @@ class Application_Form_Post extends Zend_Form
                 'class' => 'btn btn-round btn-info btn-block pull-right'
             ));
 
-        $this->addElements(array($title, $price, $phone, $email, $category, $description, $submit));
+        $this->addElements(array($id, $title, $price, $phone, $email, $category, $description, $submit));
 
     }
 

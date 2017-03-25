@@ -1,7 +1,7 @@
 <?= $this->doctype() ?>
 <html>
 <head>
-    <?= $this->headTitle(" - ZendOne") ?>
+    <?= $this->headTitle("ZendOne")->setSeparator('-') ?>
 
     <?php echo $this->headMeta()
         ->appendName('viewport', 'width=device-width, initial-scale=1.0')
@@ -40,13 +40,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="">MyZendApp</a>
+            <a class="navbar-brand" href="">ZendOne</a>
         </div>
 
         <div class="collapse navbar-collapse" id="navigation-example">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="#"><i class="fa fa-plus-square"></i> Add Post
+                    <a href="<?= $this->url(['controller' => 'post', 'action' => 'add']) ?>"><i class="fa fa-plus-square"></i> Add Post
                     </a>
                 </li>
             </ul>

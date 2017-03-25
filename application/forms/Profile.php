@@ -6,6 +6,9 @@ class Application_Form_Profile extends Zend_Form
     public function init()
     {
         /* Form Elements & Other Definitions Here ... */
+
+        $id = new Zend_Form_Element_Hidden('id');
+
         $username = new Zend_Form_Element_Text('username');
         $username->setLabel('Username')
             ->setAttribs(array(
@@ -63,7 +66,7 @@ class Application_Form_Profile extends Zend_Form
                 'class' => 'btn btn-info btn-round btn-block pull-right'
             ]);
 
-        $this->addElements([$username, $firstname, $lastname, $phone, $email, $occupation, $about, $submit]);
+        $this->addElements([$id, $username, $firstname, $lastname, $phone, $email, $interests, $occupation, $about, $submit]);
 
     }
 

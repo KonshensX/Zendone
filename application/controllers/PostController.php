@@ -51,11 +51,13 @@ class PostController extends Zend_Controller_Action
         $date = new Zend_Date();
         if ($request->isPost()) {
             $data = $request->getPost();
-            $data['date'] = $date->toString('YYYY-mm-dd HH:mm:ss');
+            $data['date'] = $date->toString('YYYY-MM-dd HH:mm:ss');
             $data['owner'] = "owner comming from the auth stuff";
 
             unset($data['submit']);
-            $post->insert($data);
+            $id = $post->insert($data);
+            //This redirects to the cover url along with the id
+            $this->getHelper('Redirector')->gotoSimple('cover', 'post', null, ['id' => $id]);
         }
 
 
@@ -83,6 +85,52 @@ class PostController extends Zend_Controller_Action
         $this->view->assign(array(
             'form' => $form
         ));
+    }
+
+    /**
+     * Update the item
+     * @throws Zend_Db_Table_Exception
+     * @throws Zend_Form_Exception
+     */
+    public function editAction () {
+        //Getting the id of the post from the url => if null default to 1
+        $id = (int) $this->getParam('id', 1);
+        //Getting the item from the database
+        $postManager = new Application_Model_DbTable_Post();
+        $post = $postManager->find($id);
+
+        $form = new Application_Form_Post();
+        $form->populate($post->current()->toArray());
+
+        if ($this->_request->isPost()) {
+            $data = $this->_request->getPost();
+            unset($data['submit']);
+            if ($form->isValid($data)) {
+                $postManager->update($data, 'id = 1');
+            }
+        }
+
+        $this->view->assign([
+            'form' => $form
+        ]);
+    }
+
+
+    /**
+     * Updates the cover of the post
+     */
+    public function coverAction () {
+        $form = new Application_Form_Cover();
+
+        if ($this->_request->isPost()) {
+
+
+
+        }
+
+        $this->view->assign([
+            'form' => $form
+        ]);
     }
 
 

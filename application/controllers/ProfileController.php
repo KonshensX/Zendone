@@ -12,21 +12,20 @@ class ProfileController extends Zend_Controller_Action
         /* Initialize action controller here */
     }
 
-    public function indexAction ()
-    {
-        
-    }
-
     /**
-     * Edit the item
+     * Profile settings
      * @throws Zend_Db_Table_Exception
      */
     //TODO: Get the id of the current logged in user
     public function editAction () {
-        //TODO: Need the user ID 
+        //TODO: Need the user ID
+        $userID = Zend_Auth::getInstance()->getIdentity()->id;
         //Getting the profile from the database
         $profileManager = new Application_Model_DbTable_Profile();
-        $profile = $profileManager->find(1);
+        $postManager = new Application_Model_DbTable_Post();
+        $profile = $profileManager->find($userID);
+        $posts = $postManager->fetchAll(['id' => $userID]);
+
         //Profile form
         $form = new Application_Form_Profile();
         //Avatar form 
@@ -39,13 +38,15 @@ class ProfileController extends Zend_Controller_Action
             unset($data['submit']);
             if ($form->isValid($data)) {
                 //TODO: This is not good, this should be replaced
-                $profileManager->update($data, 'id = 1');
+                $where["id = ?"] = $userID;
+                $profileManager->update($data, $where);
             }
         }
         $this->view->assign(array(
             'profileForm' => $form,
-            'profile' => $profile,
-            'avatarForm' => $avatarForm
+            'profileSettings' => $profile->current(),
+            'avatarForm' => $avatarForm,
+            'posts' => $posts
         ));
     }
 
@@ -70,7 +71,6 @@ class ProfileController extends Zend_Controller_Action
      * Handle the upload and cropping of the user avatar
      */
     public function avatarAction () {
-        var_dump($_FILES);die();
 
         //This is going to handle the upload of the avatar and
         //Do stuff with the image
@@ -98,6 +98,12 @@ class ProfileController extends Zend_Controller_Action
 
         //update the avatar in the profile table
         //TODO:
+        $userID = Zend_Auth::getInstance()->getIdentity()->id;
+        $profileManager = new Application_Model_DbTable_Profile();
+        $profile = $profileManager->find($userID)->current();
+        $where['id = ?'] = $userID;
+        //$data['avatar'] = $filena
+        $profileManager->update($data, $where);
 
         //Return some json indicating whether it was  a successful upload or not
         //TODO:

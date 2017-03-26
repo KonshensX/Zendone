@@ -1,5 +1,6 @@
-<?php var_dump($this->whatever);
-die();echo $this->doctype() ?>
+<?php echo $this->doctype();
+    $this->form->setAction($this->url(['controller' => 'post', 'action' => 'search']));
+?>
 <html>
 <head>
     <?= $this->headTitle("ZendOne")->setSeparator('-') ?>
@@ -41,36 +42,47 @@ die();echo $this->doctype() ?>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="">ZendOne</a>
+            <a class="navbar-brand" href="<?= $this->url(['controller' => 'post', 'action' => 'index']) ?>">ZendOne</a>
         </div>
 
         <div class="collapse navbar-collapse" id="navigation-example">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="<?= $this->url(['controller' => 'post', 'action' => 'index']) ?>"><i class="fa fa-plus-square"></i> Add Post
+                    <a href="<?= $this->url(['controller' => 'post', 'action' => 'add']) ?>"><i class="fa fa-plus-square"></i> Add Post
                     </a>
                 </li>
             </ul>
             <div class="col-sm-4 col-md-4">
+                <?php if (Zend_Auth::getInstance()->hasIdentity()) {
+                     echo $this->form->renderForm(false) ?>
+                    <div class="input-group">
+                        <?= $this->form->search->renderViewHelper() ?>
+                        <div class="input-group-btn">
+                            <button class="btn btn-info btn-just-icon" type="submit"><i class="fa fa-search-plus"></i></button>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
             <?php if (Zend_Auth::getInstance()->hasIdentity()) { ?>
                 <ul class="nav navbar-nav navbar-right pull-right">
                     <!-- The user is logged in -->
-                    <span><?php //$profile->username ?></span>
+
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true">
-                            <?php if ($profile->image) { ?>
-                            <img height="30" width="30" src="<?= $this->baseurl('../data/uploads/profile/' . $profile->image); ?>" alt="user-img" class="img-circle"> </a>
+                            <?php if ($this->profile->avatar) { ?>
+                            <img height="30" width="30" src="<?= $this->baseurl('../data/uploads/profile/' . $this->profile->avatar); ?>" alt="user-img" class="img-circle">
                         <?php } else { ?>
-                            <img height="30" width="30" src="<?= $this->baseurl('../public/img/profilepic.png'); ?>" alt="user-img" class="img-circle"> </a>
+                            <img height="30" width="30" src="<?= $this->baseurl('../public/img/profilepic.png'); ?>" alt="user-img" class="img-circle">
+                            <i class="fa fa-caret-down" ></i> </a>
                         <?php } ?>
+
                         <ul class="dropdown-menu">
                             <li><a href="<?= $this->url(['controller' => 'profile', 'action' => 'display']) ?>"><i class="fa fa-user"></i> Profile</a></li>
-                            <li><a href="<?= $this->url('profile', array('action' => 'edit', 'id' => $profile->id)); ?>"><i class="fa fa-cogs"></i> Settings</a></li>
+                            <li><a href="<?= $this->url(['controller' => 'profile', 'action' => 'edit']); ?>"><i class="fa fa-cogs"></i> Settings</a></li>
                             <li class="divider"></li>
-                            <li><a href="<?= $this->url('zfcuser/logout') ?>"><i class="fa fa-sign-out"></i> Logout</a></li>
                         </ul>
                     </li>
+                    <li><a href="<?= $this->url(['controller' => 'authentication', 'action' => 'logout']) ?>" style="margin-top: 8px !important;"><i class="fa fa-sign-out"></i> Logout</a></li>
                 </ul>
             <?php } else { ?>
                 <ul class="nav navbar-nav navbar-right pull-right">

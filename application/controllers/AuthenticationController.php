@@ -39,7 +39,7 @@ class AuthenticationController extends Zend_Controller_Action
                 $storage->write($identity);
 
                 //Redirect to index after logging in
-                $this->redirect()->goToUrl('post/index');
+                $this->getHelper('Redirector')->gotoSimple('index', 'post');
             } else {
                 die('wrong stuff');
             }

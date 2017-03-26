@@ -6,6 +6,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     public function __construct($application)
     {
         parent::__construct($application);
+        
         Zend_Controller_Front::getInstance()->registerPlugin(new Application_Plugin_Profile());
     }
 
@@ -37,12 +38,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     protected function preDispatch(Zend_Controller_Request_Abstract $request)
     {
-        $layout = $this->_bootstrap()->getResource('Layout');
-        $view = $layout->getView();
 
-        $view->assign([
-            'foo' => 'foo'
-        ]);
     }
 
 }

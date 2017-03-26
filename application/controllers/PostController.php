@@ -70,28 +70,6 @@ class PostController extends Zend_Controller_Action
         ));
     }
 
-    /**
-     * Upload the cover of the item
-     */
-    public function uploadAction() {
-
-        var_dump($_FILES);die();
-        $form = new Application_Form_Cover();
-        $adapter = new Zend_File_Transfer_Adapter_Http();
-        $adapter->receive();
-        $request = $this->getRequest();
-
-
-        if ($request->isPost()) {
-            //$files = $adapter->getFilesInfo();
-            echo "<pre>";
-            var_dump($adapter);
-            die();
-        }
-        $this->view->assign(array(
-            'form' => $form
-        ));
-    }
 
     /**
      * Update the item
@@ -176,8 +154,9 @@ class PostController extends Zend_Controller_Action
                 'cover' => $filename,
             ], $where);
 
-            //$this->_helper->redirector(null, null, null, null);
-
+            $this->_helper->json([
+                'message' => 'success'
+            ]);
         }
 
         $this->view->assign([
@@ -189,6 +168,19 @@ class PostController extends Zend_Controller_Action
     public function redtAction () {
         $params = array('id' => 20);
         $this->_helper->redirector('cover', 'post', null, $params);
+    }
+
+    public function searchAction () {
+        $request = $this->getRequest();
+        $postManager = new Application_Model_DbTable_Post();
+
+        $where['title like ?'] = '%'.$request->getPost('search').'%';
+        $posts = $postManager->fetchAll($where);
+
+        $this->view->assign([
+            'title' => $request->getPost('search'),
+            'posts' => $posts
+        ]);
     }
 
 

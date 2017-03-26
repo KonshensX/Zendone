@@ -1,9 +1,9 @@
 <?php
 
-require_once '/vendor/imagine/lib/Gd/Imagine.php';
-require_once '/vendor/imagine/lib/Image/Box.php';
-require_once '/vendor/imagine/lib/Image/Point.php';
 
+use Imagine\Gd\Imagine;
+use Imagine\Image\Box;
+use Imagine\Image\Point;
 
 class PostController extends Zend_Controller_Action
 {
@@ -20,26 +20,25 @@ class PostController extends Zend_Controller_Action
         $posts = new Application_Model_DbTable_Post();
         $rows = $posts->getPostsWithCategory();
 
-
-
         $this->view->assign(array(
             'paginator' => $rows
         ));
     }
 
     public function displayAction () {
-        $id = (int)$this->_request->getParam('id', 2);
+        $id = (int)$this->getParam('id', 0);
 
         if (!$id) {
             //Redirect if no id
             //$this->redirect();
+            $this->_helper->redirect()->goToUrl('post/index');
         }
 
         $postManager = new Application_Model_DbTable_Post();
-        $post = $postManager->getPostWithCategory(1);
 
+        $post = $postManager->getPostWithCategory($id);
         $this->view->assign([
-            'post' => $post->current()
+            'post' => $post
         ]);
     }
 
@@ -130,8 +129,16 @@ class PostController extends Zend_Controller_Action
         //this will need the id of the item whose cover need to be changed
         //TODO: Get id from the url
 
+        $id = (int) $this->_request->getParam('id', 0);
+        if (!$id) {
+            //die("damn son no id was provided");
+            //$this->getHelper('redirector')->go
+            $this->_helper->redirector->goToUrl('post/index');
+        }
+
 
         $form = new Application_Form_Cover();
+        $postManager = new Application_Model_DbTable_Post();
 
         if ($this->_request->isPost()) {
             echo "<pre>";
@@ -158,15 +165,30 @@ class PostController extends Zend_Controller_Action
             $filename = md5($filename) . $extension;
             $image
                 ->crop(new Point($x, $y), new Box($width, $height))
-                ->save(getcwd() . '/data/uploads/covers/' . $filename);
+                ->save(getcwd() . '/../data/uploads/covers/' . $filename);
 
-            //Update the post
+            //Update the post in the database
+            $post = $postManager->find($id)->current();
+
+            $where = $postManager->getAdapter()->quoteInto('id = ?', $id);
+
+            $postManager->update([
+                'cover' => $filename,
+            ], $where);
+
+            //$this->_helper->redirector(null, null, null, null);
 
         }
 
         $this->view->assign([
             'form' => $form
         ]);
+    }
+
+
+    public function redtAction () {
+        $params = array('id' => 20);
+        $this->_helper->redirector('cover', 'post', null, $params);
     }
 
 

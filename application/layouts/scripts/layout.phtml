@@ -1,4 +1,5 @@
-<?= $this->doctype() ?>
+<?php var_dump($this->whatever);
+die();echo $this->doctype() ?>
 <html>
 <head>
     <?= $this->headTitle("ZendOne")->setSeparator('-') ?>
@@ -46,16 +47,44 @@
         <div class="collapse navbar-collapse" id="navigation-example">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="<?= $this->url(['controller' => 'post', 'action' => 'add']) ?>"><i class="fa fa-plus-square"></i> Add Post
+                    <a href="<?= $this->url(['controller' => 'post', 'action' => 'index']) ?>"><i class="fa fa-plus-square"></i> Add Post
                     </a>
                 </li>
             </ul>
             <div class="col-sm-4 col-md-4">
             </div>
-
-            <ul class="nav navbar-nav navbar-right pull-right">
-
-            </ul>
+            <?php if (Zend_Auth::getInstance()->hasIdentity()) { ?>
+                <ul class="nav navbar-nav navbar-right pull-right">
+                    <!-- The user is logged in -->
+                    <span><?php //$profile->username ?></span>
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true">
+                            <?php if ($profile->image) { ?>
+                            <img height="30" width="30" src="<?= $this->baseurl('../data/uploads/profile/' . $profile->image); ?>" alt="user-img" class="img-circle"> </a>
+                        <?php } else { ?>
+                            <img height="30" width="30" src="<?= $this->baseurl('../public/img/profilepic.png'); ?>" alt="user-img" class="img-circle"> </a>
+                        <?php } ?>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?= $this->url(['controller' => 'profile', 'action' => 'display']) ?>"><i class="fa fa-user"></i> Profile</a></li>
+                            <li><a href="<?= $this->url('profile', array('action' => 'edit', 'id' => $profile->id)); ?>"><i class="fa fa-cogs"></i> Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a href="<?= $this->url('zfcuser/logout') ?>"><i class="fa fa-sign-out"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            <?php } else { ?>
+                <ul class="nav navbar-nav navbar-right pull-right">
+                    <!-- The used is not logged in -->
+                    <li>
+                        <a href="<?= $this->url(['controller' => 'authentication', 'action' => 'login']) ?>"><i class="fa fa-sign-in"></i> LOGIN
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= $this->url(['controller' => 'register', 'action' => 'register']) ?>" ><i class="fa fa-sign-out"></i> REGISTER
+                        </a>
+                    </li>
+                </ul>
+            <?php } ?>
         </div>
     </div>
 </nav>

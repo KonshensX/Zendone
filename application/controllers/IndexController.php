@@ -24,11 +24,5 @@ class IndexController extends Zend_Controller_Action
         ));
     }
 
-    public function storeAction() {
-        var_dump($this->getRequest());
-        die();
-    }
-
-
 }
 

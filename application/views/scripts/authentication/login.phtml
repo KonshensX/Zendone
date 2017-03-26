@@ -1,0 +1,22 @@
+<h3 class="text-center">Sign in</h3>
+<div class="col-lg-8 col-lg-offset-2">
+    <?= $this->form->renderForm(false) ?>
+    <div class="form-group floating-label">
+        <label for="" class="control-label">
+            <?= $this->form->username->getLabel() ?>
+        </label>
+        <?= $this->form->username->renderViewHelper() ?>
+    </div>
+
+    <div class="form-group floating-label">
+        <label for="" class="control-label">
+            <?= $this->form->password->getLabel() ?>
+        </label>
+        <?= $this->form->password->renderViewHelper() ?>
+    </div>
+    <button class="btn btn-info pull-right">
+        <i class="fa fa-sign-in"></i> Connect
+    </button>
+</div>
+
+

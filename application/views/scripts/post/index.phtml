@@ -4,6 +4,7 @@ $this->headTitle("Index page man");
 <br><br>
 <div class="col-lg-10 col-lg-offset-1">
 	<?php foreach ($this->paginator as $post) : ?>
+		
 		<div class="card" style="width: 300px; overflow: hidden; margin-left: 10px;">
 			<?php
 			if ($post->cover) {
@@ -21,7 +22,8 @@ $this->headTitle("Index page man");
 				<h4 class="card-title">
 					<a href="<?= $this->url(array('action' => 'display', 'id' => $post->id)) ?>">
 						<?= $post->title ?>
-					</a>
+					</a><br>
+					<span style="font-size: 8pt"><em></em></span>
 				</h4>
 				<p class="card-text"><?= $post->description ?>.</p>
 				<a href="<?= $this->url(array('action' => 'display', 'id' => $post->id)) ?>" class="btn btn-primary"><i class="fa fa-bars"></i> More</a>

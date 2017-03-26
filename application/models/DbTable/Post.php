@@ -23,7 +23,7 @@ class Application_Model_DbTable_Post extends Zend_Db_Table_Abstract
     public function getPostsWithCategory () {
         $query = $this->select();
         $query->from(array('p' => 'posts'))
-              ->join(array('c' => 'categories'), 'p.category_id = c.id')
+              //->join(array('c' => 'categories'), 'p.category_id = c.id')
               ->order('p.id DESC');
         $query->setIntegrityCheck(false);
 
@@ -32,17 +32,18 @@ class Application_Model_DbTable_Post extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Get an item along with the post
+     * Get an item along with the post by ID
+     * @param $id Integer
+     * @return null|Zend_Db_Table_Row_Abstract
      */
     public function getPostWithCategory ($id) {
         $query = $this->select();
         $query->from(array('p' => 'posts'))
             ->join(array('c' => 'categories'), 'p.category_id = c.id')
-            ->where('p.id', $id)
-            ->order('p.id DESC');
+            ->where('p.id = ?', $id);
         $query->setIntegrityCheck(false);
 
-        $result = $this->fetchAll($query);
+        $result = $this->fetchRow($query);
         return $result;
     }
 }

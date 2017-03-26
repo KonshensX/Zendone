@@ -13,6 +13,9 @@ set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../library'),
     get_include_path(),
 )));
+//Composer autoloader
+
+require_once('../vendor/autoload.php');
 
 /** Zend_Application */
 require_once 'Zend/Application.php';

@@ -1,5 +1,5 @@
 <?php echo $this->doctype();
-    $this->form->setAction($this->url(['controller' => 'post', 'action' => 'search']));
+    $this->searchForm->setAction($this->url(['controller' => 'post', 'action' => 'search']));
 ?>
 <html>
 <head>
@@ -52,17 +52,7 @@
                     </a>
                 </li>
             </ul>
-            <div class="col-sm-4 col-md-4">
-                <?php if (Zend_Auth::getInstance()->hasIdentity()) {
-                     echo $this->form->renderForm(false) ?>
-                    <div class="input-group">
-                        <?= $this->form->search->renderViewHelper() ?>
-                        <div class="input-group-btn">
-                            <button class="btn btn-info btn-just-icon" type="submit"><i class="fa fa-search-plus"></i></button>
-                        </div>
-                    </div>
-                <?php } ?>
-            </div>
+            <?= $this->render('/post/searchForm.phtml') ?>
             <?php if (Zend_Auth::getInstance()->hasIdentity()) { ?>
                 <ul class="nav navbar-nav navbar-right pull-right">
                     <!-- The user is logged in -->

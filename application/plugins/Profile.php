@@ -8,12 +8,12 @@ class Application_Plugin_Profile extends Zend_Controller_Plugin_Abstract
         if (Zend_Auth::getInstance()->hasIdentity()) {
             $layout = Zend_Layout::getMvcInstance();
             $view = $layout->getView();
-            $form = new Application_Form_Search();
+            $searchForm = new Application_Form_Search();
             $userID = Zend_Auth::getInstance()->getIdentity()->id;
             $profileManager = new Application_Model_DbTable_Profile();
             $profile = $profileManager->find($userID);
             $view->assign([
-                'form' => $form,
+                'searchForm' => $searchForm,
                 'profile' => $profile->current(),
             ]);
             return;

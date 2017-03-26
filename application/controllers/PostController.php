@@ -56,7 +56,7 @@ class PostController extends Zend_Controller_Action
         if ($request->isPost()) {
             $data = $request->getPost();
             $data['date'] = $date->toString('YYYY-MM-dd HH:mm:ss');
-            $data['owner'] = "owner comming from the auth stuff";
+            $data['user_id'] = Zend_Auth::getInstance()->getIdentity()->id;
 
             unset($data['submit']);
             $id = $post->insert($data);

@@ -48,14 +48,16 @@
         </div>
 
         <div class="collapse navbar-collapse" id="navigation-example">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="<?= $this->url(['controller' => 'post', 'action' => 'add']) ?>"><i class="fa fa-plus-square"></i> Add Post
-                    </a>
-                </li>
-            </ul>
-            <?= $this->render('/post/searchForm.phtml') ?>
+
+
             <?php if (Zend_Auth::getInstance()->hasIdentity()) { ?>
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="<?= $this->url(['controller' => 'post', 'action' => 'add']) ?>"><i class="fa fa-plus-square"></i> Add Post
+                        </a>
+                    </li>
+                </ul>
+                <?= $this->render('/post/searchForm.phtml') ?>
                 <ul class="nav navbar-nav navbar-right pull-right">
                     <!-- The user is logged in -->
 

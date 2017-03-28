@@ -21,7 +21,7 @@ class AuthenticationController extends Zend_Controller_Action
             die("YOu are already logged in");
         }
         $form = new Application_Form_Login();
-        $request = $this->_request;
+        $request = $this->_request; //getRequest()
         if ($request->isPost()) {
             $username = $request->getParam('username');
             $pwd = $request->getParam('password');

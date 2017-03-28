@@ -12,6 +12,9 @@ $this->headTitle($this->profile->username . ' Profile page');
         </div>
         <h2 class="text-center"><?= $this->profile->firstname . ' ' . $this->profile->lastname . '<br> A.K.A <br>  ' . $this->profile->username ?></h2>
         <h6 class="text-center text-uppercase"><?= $this->profile->occupation ?></h6>
+        <p class="text-center">
+            <h3 class="text-center"><strong><i class="fa fa-phone text-info"> </i></strong> <?= $this->profile->mobile ?></h3>
+        </p>
         <p class="text-center description"><?= $this->profile->about ?></p>
         <hr>
 
@@ -19,7 +22,6 @@ $this->headTitle($this->profile->username . ' Profile page');
             <div class="panel-heading">
                 <h5 class="text-center text-uppercase"><strong><?= $this->profile->username ?></strong> influence</h5>
             </div>
-
         </div>
     </div>
 </div>

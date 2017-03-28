@@ -11,7 +11,7 @@ class Application_Plugin_Profile extends Zend_Controller_Plugin_Abstract
             $searchForm = new Application_Form_Search();
             $userID = Zend_Auth::getInstance()->getIdentity()->id;
             $profileManager = new Application_Model_DbTable_Profile();
-            $profile = $profileManager->find($userID);
+            $profile = $profileManager->fetchAll($profileManager->select()->where('user_id = ?', $userID));
             $view->assign([
                 'searchForm' => $searchForm,
                 'profile' => $profile->current(),

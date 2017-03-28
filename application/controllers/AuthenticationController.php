@@ -41,12 +41,16 @@ class AuthenticationController extends Zend_Controller_Action
                 //Redirect to index after logging in
                 $this->getHelper('Redirector')->gotoSimple('index', 'post');
             } else {
-                die('wrong stuff');
+                $this->_helper->flashMessenger->addMessage([
+                    'error' => 'Credentials Invalid'
+                ]);
+
             }
         }
 
         $this->view->assign([
-            'form' => $form
+            'form' => $form,
+            'flashmsgs' => $this->_helper->flashMessenger,
         ]);
     }
 
@@ -61,7 +65,8 @@ class AuthenticationController extends Zend_Controller_Action
         $authAdapter = new Zend_Auth_Adapter_DbTable(Zend_Db_Table::getDefaultAdapter());
         $authAdapter->setTableName('users')
                    ->setIdentityColumn('username')
-                   ->setCredentialColumn('password');
+                   ->setCredentialColumn('password')
+                    ->setCredentialTreatment('MD5(?)');
         return $authAdapter;
     }
 

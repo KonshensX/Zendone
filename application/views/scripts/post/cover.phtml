@@ -1,6 +1,22 @@
 <?php $this->form->setAction($this->url()) ?>
 <h2 class="text-center">Upload a photo</h2>
-<img class="img-responsive preview" src="" id="image">
-<div class="col-lg-10">
+<div class="col-lg-10 col-lg-offset-1">
+<div class="alert alert-success" id="alertbox">
+    <div class="container-fluid">
+        <div class="alert-icon">
+            <i class="fa fa-check"></i>
+        </div>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true"><i class="fa fa-close"></i></span>
+        </button>
+        <b>Success Alert:</b> Your photo was successfully saved!
+    </div>
+</div>
+<img class="img-responsive img-raised text-center preview" src="<?php
+    if ($this->post->cover) {
+        echo $this->baseurl('../data/uploads/covers/' . $this->post->cover);
+    }
+?>" id="image">
+
     <?= $this->form ?>
 </div>

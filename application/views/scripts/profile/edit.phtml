@@ -1,6 +1,7 @@
 <?php
+    //$this->profileForm->setAction($this->url(['controller' => 'profile', 'action' => 'avatar']));
     $this->profileForm->setAction($this->url());
-    $this->profileForm->setAction($this->url(['controller' => 'profile', 'action' => 'avatar']));
+
     $this->headTitle('Settings');
     //Set the avatar form action
     /*
@@ -11,6 +12,13 @@
 ?>
 <br><br>
 <div class="col-lg-10 col-lg-offset-1">
+    <?php if(isset($this->flashmsgs)) { ?>
+    <?php foreach($this->flashmsgs as $msg){
+        foreach ($msg as $key=>$message) { ?>
+            <div class="alert alert-success">
+                <h3 class="text-center"><i class="fa fa-check-circle"></i> <?= $message ?></h3>
+            </div>
+    <?php } } }?>
     <div class="card card-nav-tabs">
         <div class="header header-info">
             <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
@@ -40,7 +48,7 @@
             </div>
         </div>
         <div class="content" style="overflow: hidden">
-            <div class="tab-content text-center">
+            <div class="tab-content">
                 <div class="tab-pane active" id="profile">
                     <div class="col-lg-8 col-lg-offset-2">
 
@@ -107,12 +115,12 @@
                         <?php } else { ?>
                             <img class="img-responsive preview" src="<?= $this->baseurl('img/profilePic.png') ?>" id="image-file">
                         <?php } ?>
-                        <?= $this->avatarForm->render() ?>
+                        <form action="<?= $this->url(['controller' => 'post', 'action' => 'upload']) ?>"></form>
+                        <?= $this->avatarForm ?>
                     </div>
-
                 </div>
                 <div class="tab-pane" id="posts">
-                    <?php if (!$this->posts) { ?>
+                    <?php if (!count($this->posts)) { ?>
                         <h3 class="text-center text-info">Opps, this user has not posted anything yet!</h3>
                     <?php } else { ?>
                         <?php foreach ($this->posts as $post) { ?>
@@ -127,7 +135,6 @@
                                         <?php } else { ?>
                                             <img class="img-responsive" width="300px" height="180px" src="<?= $this->baseurl('/img/no-cover.png') ?>" alt="">
                                         <?php } ?>
-
                                     </div>
                                     <div class="panel-footer">
                                         <div class="btn-group">

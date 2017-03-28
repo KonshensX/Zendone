@@ -8,8 +8,7 @@ class Application_Form_Post extends Zend_Form
         /* Form Elements & Other Definitions Here ... */
 
         $id = new Zend_Form_Element_Hidden('id');
-
-
+        
         $title = new Zend_Form_Element_Text('title');
         $title->setLabel('Post title')
                 ->setAttribs(array(

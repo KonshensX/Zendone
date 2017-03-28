@@ -18,10 +18,15 @@ class PostController extends Zend_Controller_Action
         // Display all the items in the database along with the pagination and stuff
 
         $posts = new Application_Model_DbTable_Post();
-        $rows = $posts->getPostsWithCategory();
+        //$rows = $posts->getPostsWithCategory();
+
+        $page = $this->_request->getParam('page');
+        if (empty($page)) { $page = 1; }
+
+        $paginator = $posts->getOnePageOfPosts($page);
 
         $this->view->assign(array(
-            'paginator' => $rows
+            'paginator' => $paginator
         ));
     }
 
@@ -61,7 +66,8 @@ class PostController extends Zend_Controller_Action
             unset($data['submit']);
             $id = $post->insert($data);
             //This redirects to the cover url along with the id
-            $this->getHelper('Redirector')->gotoSimple('cover', 'post', null, [$id]);
+            $params = ['id' => $id];
+            $this->_helper->redirector('cover', 'post', null, $params);
         }
 
 
@@ -90,7 +96,11 @@ class PostController extends Zend_Controller_Action
             $data = $this->_request->getPost();
             unset($data['submit']);
             if ($form->isValid($data)) {
-                $postManager->update($data, 'id = 1');
+                $where['id = ?'] = $id;
+                $postManager->update($data, $where);
+
+                $params = ['id' => $id];
+                $this->_helper->redirector('cover', 'post', null, $params);
             }
         }
 
@@ -114,14 +124,10 @@ class PostController extends Zend_Controller_Action
             $this->_helper->redirector->goToUrl('post/index');
         }
 
-
         $form = new Application_Form_Cover();
         $postManager = new Application_Model_DbTable_Post();
-
+        $post = $postManager->find($id)->current();
         if ($this->_request->isPost()) {
-            echo "<pre>";
-            var_dump($_FILES);
-            //die();
             //Do stuff with the image
             //Data gon' come through an ajax request
             $x = 0;
@@ -146,7 +152,7 @@ class PostController extends Zend_Controller_Action
                 ->save(getcwd() . '/../data/uploads/covers/' . $filename);
 
             //Update the post in the database
-            $post = $postManager->find($id)->current();
+
 
             $where = $postManager->getAdapter()->quoteInto('id = ?', $id);
 
@@ -160,14 +166,9 @@ class PostController extends Zend_Controller_Action
         }
 
         $this->view->assign([
-            'form' => $form
+            'form' => $form,
+            'post' => $post,
         ]);
-    }
-
-
-    public function redtAction () {
-        $params = array('id' => 20);
-        $this->_helper->redirector('cover', 'post', null, $params);
     }
 
     public function searchAction () {

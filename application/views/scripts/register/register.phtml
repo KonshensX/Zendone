@@ -1,1 +1,38 @@
 <h2 class="text-center">Registration form</h2>
+<div class="col-lg-8 col-lg-offset-2" >
+
+    <?= $this->register->renderForm(false); ?>
+    <div class="form-group floating-label" >
+        <label class='control-label'>
+            <?= $this->register->email->getLabel() ?>
+        </label>
+        <?= $this->register->email->renderViewHelper() ?>
+    </div>
+    <div class="form-group floating-label" >
+        <label class='control-label'>
+            <?= $this->register->username->getLabel() ?>
+        </label>
+        <?= $this->register->username->renderViewHelper() ?>
+    </div>
+
+    <div class="form-group floating-label" >
+        <label class='control-label'>
+            <?= $this->register->password->getLabel() ?>
+        </label>
+        <?= $this->register->password->renderViewHelper() ?>
+    </div>
+
+    <div class="form-group floating-label" >
+        <label class='control-label'>
+            <?= $this->register->confirmPassword->getLabel() ?>
+        </label>
+        <?= $this->register->confirmPassword->renderViewHelper() ?>
+    </div>
+    <div class="form-group" style="overflow: hidden;">
+        <button class="btn btn-md btn-info pull-right">
+            <i class="fa fa-sign-in"></i>
+            Register
+        </button>
+    </div>
+
+</div>

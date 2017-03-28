@@ -10,18 +10,7 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        $form = new Application_Form_Post();
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-
-
-
-        }
-
-        $this->view->assign(array(
-            'form' => $form,
-            'data' => "this is some data"
-        ));
+        $this->_helper->redirector('index', 'post');
     }
 
 }

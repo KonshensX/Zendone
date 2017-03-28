@@ -1,5 +1,12 @@
 <h3 class="text-center">Sign in</h3>
-<div class="col-lg-8 col-lg-offset-2">
+<div class="col-lg-6 col-lg-offset-3">
+    <?php if(isset($this->flashmsgs)) { ?>
+        <?php foreach($this->flashmsgs as $msg){
+                foreach ($msg as $key=>$message) { ?>
+                    <div class="alert alert-danger">
+                        <h3 class="text-center"><i class="fa fa-close"></i> <?= $message ?></h3>
+                    </div>
+            <?php } } }?>
     <?= $this->form->renderForm(false) ?>
     <div class="form-group floating-label">
         <label for="" class="control-label">
@@ -14,9 +21,11 @@
         </label>
         <?= $this->form->password->renderViewHelper() ?>
     </div>
-    <button class="btn btn-info pull-right">
-        <i class="fa fa-sign-in"></i> Connect
-    </button>
+    <div class="form-group" style="overflow: hidden;">
+        <button class="btn btn-info pull-right">
+            <i class="fa fa-sign-in"></i> Connect
+        </button>
+    </div>
 </div>
 
 

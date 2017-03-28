@@ -1,5 +1,7 @@
 <?php echo $this->doctype();
-    $this->searchForm->setAction($this->url(['controller' => 'post', 'action' => 'search']));
+    if ($this->searchForm) {
+        $this->searchForm->setAction($this->url(['controller' => 'post', 'action' => 'search']));
+    }
 ?>
 <html>
 <head>

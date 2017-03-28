@@ -46,5 +46,22 @@ class Application_Model_DbTable_Post extends Zend_Db_Table_Abstract
         $result = $this->fetchRow($query);
         return $result;
     }
+
+    /**
+     * Return one page of order entries
+     *
+     * @param int $page page number
+     * @return Zend_Paginator Zend_Paginator
+     */
+    public function getOnePageOfPosts($page=1) {
+
+        $query = $this->select()->from(array('p' => 'posts'))->order('p.id DESC');
+        $paginator = new Zend_Paginator(
+            new Zend_Paginator_Adapter_DbTableSelect($query)
+        );
+        $paginator->setItemCountPerPage(4);
+        $paginator->setCurrentPageNumber($page);
+        return $paginator;
+    }
 }
 

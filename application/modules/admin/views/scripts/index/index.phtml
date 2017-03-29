@@ -1,0 +1,43 @@
+<h1 class="text-center text-primary"><i class="fa fa-dashboard"></i> Admin Dashboard</h1>
+
+<div class="panel panel-info">
+	<div class="panel-heading">
+		<h4 class="text-center" style="color: #FFF;">
+			<i class="fa fa-clock-o"></i>
+			Recent none approved posts
+		</h4>
+	</div>
+	<div class="panel-body">
+		<?php //echo "<pre>"; var_dump($this->posts);die(); ?>
+		<?php if ($this->posts): ?>
+			<?php foreach ($this->posts as $post): ?>
+				<div class="card" style="width: 250px; overflow: hidden; margin-left: 10px;">
+					<?php
+					if ($post->cover) {
+						?>
+						<img width="250px" class="card-img-top" src="<?= $this->baseurl('../data/uploads/covers/' . $post->cover) ?> " alt="<?= $post->title ?>">
+						<?php
+
+					} else {
+						?>
+						<img width="250px" class="card-img-top" src="<?= $this->baseurl('/img/no-cover.png') ?>" alt="Card image cap">
+						<?php
+					}
+					?>
+					<div class="card-block" style="padding: 10px;">
+						<h4 class="card-title">
+							<a href="<?= $this->url(array('module' => 'default', 'controller' => 'post', 'action' => 'display', 'id' => $post->id)) ?>">
+								<?= $post->title ?>
+							</a><br>
+							<span style="font-size: 8pt"><em></em></span>
+						</h4>
+
+						<a href="<?= $this->url(['module' => 'admin', 'controller' => 'index', 'action' => 'approve', 'id' => $post->id]) ?>" class="btn btn-round btn-sm btn-success"><i class="fa fa-check-circle"></i> Approve</a>
+					</div>
+				</div>
+			<?php endforeach; ?>
+		<?php else: ?>
+			<h4 class="text-center text-info">There are no posts to approve</h4>
+		<?php endif ?>
+	</div>
+</div>

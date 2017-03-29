@@ -21,11 +21,16 @@ class RegisterController extends Zend_Controller_Action
         $request = $this->getRequest();
 
         if ($request->isPost() ) {
+
             //If the user already exists redirect to the login page
             $username  = $request->getParam('username');
             $email  = $request->getParam('email');
             $password  = $request->getParam('password');
             $confirmPassword= $request->getParam('confirmPassword');
+
+            if ($request->isXmlHttpRequest()) {
+                $this->checkEmailAndUsername($email, $username);
+            }
 
             //If the passwords does not match don't do anything .
             if (!($password === $confirmPassword)) {
@@ -91,6 +96,39 @@ class RegisterController extends Zend_Controller_Action
             ->setCredentialColumn('password')
             ->setCredentialTreatment('MD5(?)');
         return $authAdapter;
+    }
+
+
+    /**
+     * Checks whether the username is already taken or not
+     * @param $email
+     */
+    public function usernameAction () {
+        //TODO: check if the username and the email is already taken or not
+        $username = $this->getRequest()->getParam('username');
+        $userManager = new Application_Model_DbTable_User();
+        //Checking if the email is already taken or not
+        $result =$userManager->fetchAll($userManager->select()->from(['u' => 'users'])->where('username = ?', $username));
+        if ($result->count()) {
+            die('false');
+        }
+        die('true');
+    }
+
+    /**
+     * Checks whether the email is already taken or not
+     * @param $email
+     */
+    public function emailAction () {
+        //TODO: check if the username and the email is already taken or not
+        $email = $this->getRequest()->getParam('email');
+        $userManager = new Application_Model_DbTable_User();
+        //Checking if the email is already taken or not
+        $result =$userManager->fetchAll($userManager->select()->from(['u' => 'users'])->where('email = ?', $email));
+        if ($result->count()) {
+            die('false');
+        }
+        die('true');
     }
 
 }

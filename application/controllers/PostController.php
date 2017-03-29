@@ -184,6 +184,19 @@ class PostController extends Zend_Controller_Action
         ]);
     }
 
+    public function checktitleAction () {
+
+        $request = $this->getRequest();
+        $title = $request->getParam('title');
+        $postManager = new Application_Model_DbTable_Post();
+        $result = $postManager->fetchAll($postManager->select()->from(['p' => 'posts'])->where('title like ?', $title));
+
+        if ($result->count()) {
+           die ('false');
+        }
+        die('true');
+    }
+
 
 }
 

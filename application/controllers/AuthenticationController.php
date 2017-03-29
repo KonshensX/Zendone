@@ -60,6 +60,8 @@ class AuthenticationController extends Zend_Controller_Action
         //$this->redirect()
     }
 
+    
+
     private function getAuthAdapter () {
         //TODO:Get the auth adapter
         $authAdapter = new Zend_Auth_Adapter_DbTable(Zend_Db_Table::getDefaultAdapter());

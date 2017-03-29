@@ -6,7 +6,7 @@ class Application_Form_Post extends Zend_Form
     public function init()
     {
         /* Form Elements & Other Definitions Here ... */
-
+        $this->setAttrib('id', 'postForm');
         $id = new Zend_Form_Element_Hidden('id');
         
         $title = new Zend_Form_Element_Text('title');

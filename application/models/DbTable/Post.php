@@ -48,6 +48,17 @@ class Application_Model_DbTable_Post extends Zend_Db_Table_Abstract
     }
 
     /**
+     * Get the List of the posts that are not yet approved
+     *
+     * @return Zend_Db_Select
+     */
+    public function getPostsNotActiveYet () {
+        $query =  $this->select()->from(['p' => 'posts'])->where('active = 0')->order('p.id DESC');
+
+        return $this->fetchAll($query);
+    }
+
+    /**
      * Return one page of order entries
      *
      * @param int $page page number
@@ -55,7 +66,7 @@ class Application_Model_DbTable_Post extends Zend_Db_Table_Abstract
      */
     public function getOnePageOfPosts($page=1) {
 
-        $query = $this->select()->from(array('p' => 'posts'))->order('p.id DESC');
+        $query = $this->select()->from(array('p' => 'posts'))->where('active = 1')->order('p.id DESC');
         $paginator = new Zend_Paginator(
             new Zend_Paginator_Adapter_DbTableSelect($query)
         );
